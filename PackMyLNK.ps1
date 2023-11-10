@@ -41,6 +41,8 @@ $sourceFolder = $shell.NameSpace($curDir)
 $zipFolder.MoveHere($sourceFolder.ParseName((Split-Path -Leaf $lnk)))
 $zipFolder.MoveHere($sourceFolder.ParseName((Split-Path -Leaf $ps1)))
 
+Start-Sleep -Seconds 3
+
 $acl = Get-Acl $zipFile
 $accessRule = New-Object System.Security.AccessControl.FileSystemAccessRule(
     [System.Security.Principal.WindowsIdentity]::GetCurrent().Name,
@@ -49,8 +51,6 @@ $accessRule = New-Object System.Security.AccessControl.FileSystemAccessRule(
 )
 $acl.SetAccessRule($accessRule)
 Set-Acl -Path $zipFile -AclObject $acl
-
-Start-Sleep -Seconds 3
 
 Write-Host "ZIP file created: $zipFile"
 Write-Host "Bye!"
