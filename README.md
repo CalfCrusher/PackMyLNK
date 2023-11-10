@@ -1,7 +1,6 @@
 # PackMyLNK
-A simple Zip packer to bypass Windows Defender for malicious LNK files
 
-This script takes a URL as input and embeds it into a classic kill chain using LNK files. I developed it with the explicit purpose of evading detection by Windows Defender.
+This script takes a URL as input and embeds it into a classic kill chain using LNK files. I designed it with the specific intent of avoiding detection by Windows Defender. It generates a final ZIP file, ready to be delivered to the target using Social Engineering techniques.
 
 ## Usage
 `.\PackMyLNK.ps1 -Url http://example.com/payload-to-execute.ps1`
