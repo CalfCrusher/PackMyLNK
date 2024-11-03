@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35327.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PackMyLNK", "PackMyLNK.csproj", "{CEB4A602-2BD2-4FBB-ADE6-D043B501C337}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CEB4A602-2BD2-4FBB-ADE6-D043B501C337}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEB4A602-2BD2-4FBB-ADE6-D043B501C337}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEB4A602-2BD2-4FBB-ADE6-D043B501C337}.Debug|x64.ActiveCfg = Debug|x64
+		{CEB4A602-2BD2-4FBB-ADE6-D043B501C337}.Debug|x64.Build.0 = Debug|x64
+		{CEB4A602-2BD2-4FBB-ADE6-D043B501C337}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEB4A602-2BD2-4FBB-ADE6-D043B501C337}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEB4A602-2BD2-4FBB-ADE6-D043B501C337}.Release|x64.ActiveCfg = Release|x64
+		{CEB4A602-2BD2-4FBB-ADE6-D043B501C337}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {26557AEB-D750-45FB-B1C1-F029EC486685}
+	EndGlobalSection
+EndGlobal
